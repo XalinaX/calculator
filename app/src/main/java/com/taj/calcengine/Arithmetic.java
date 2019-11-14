@@ -23,7 +23,7 @@ public class Arithmetic implements CalcEngine {
         TokenType lastTokenType = TokenType.NONE;
 
         for (char c; sc.hasNext();) {
-            
+
         }
     }
 
