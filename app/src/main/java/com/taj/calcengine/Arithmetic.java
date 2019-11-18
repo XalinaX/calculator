@@ -2,12 +2,11 @@ package com.taj.calcengine;
 
 import com.taj.calcengine.fudnamental.Rational;
 import com.taj.calcengine.fudnamental.TokenType;
+import com.taj.calcengine.lex.LexResult;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Arithmetic implements CalcEngine {
-
     private ArrayList<Rational> operands;
     private ArrayList<String> operators;
     private ArrayList<Integer> braceLim;
@@ -18,13 +17,11 @@ public class Arithmetic implements CalcEngine {
         return Rational.zero();
     }
 
-    private void parse(String source) {
-        Scanner sc = new Scanner(source).useDelimiter("\\s*");
-        TokenType lastTokenType = TokenType.NONE;
+    private void parse(LexResult lx) {
+        ArrayList<String> elems = lx.getElems();
+        ArrayList<TokenType> types = lx.getTypes();
 
-        for (char c; sc.hasNext();) {
 
-        }
     }
 
     public void clearAll() {
