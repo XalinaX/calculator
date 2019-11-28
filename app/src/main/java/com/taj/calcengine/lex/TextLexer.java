@@ -1,9 +1,8 @@
 package com.taj.calcengine.lex;
 
-import com.taj.calcengine.fudnamental.TokenType;
+import com.taj.calcengine.fundamental.TokenType;
 
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  * Lexer for text input from the front end.
@@ -44,8 +43,8 @@ public class TextLexer {
             throw new NoSuchElementException();
         }
         char c = source.charAt(index);
-        // brackets and delimiters
-        if ("(){}".indexOf(c) != -1) {
+        // brackets and delimiters and operators
+        if ("(){}+-*/".indexOf(c) != -1) {
             index++;
             return new LexedPair(String.valueOf(c), TokenType.charToTok(c));
         }
@@ -56,10 +55,6 @@ public class TextLexer {
                 sb.append(c);
             }
             return new LexedPair(sb.toString(), TokenType.NUM);
-        }
-        else if (c == '+' || c == '-' || c == '*' || c == '/') {
-            index++;
-            return new LexedPair(String.valueOf(c), TokenType.OPR);
         }
         // functions
         else if (c == '\\') {

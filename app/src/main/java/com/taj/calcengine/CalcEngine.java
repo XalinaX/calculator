@@ -1,6 +1,6 @@
 package com.taj.calcengine;
 
-import com.taj.calcengine.fudnamental.Rational;
+import com.taj.calcengine.fundamental.Rational;
 
 public interface CalcEngine {
 

@@ -1,6 +1,6 @@
 package com.taj.calcengine.lex;
 
-import com.taj.calcengine.fudnamental.TokenType;
+import com.taj.calcengine.fundamental.TokenType;
 
 import java.util.ArrayList;
 

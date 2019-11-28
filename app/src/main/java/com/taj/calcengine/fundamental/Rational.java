@@ -1,4 +1,4 @@
-package com.taj.calcengine.fudnamental;
+package com.taj.calcengine.fundamental;
 
 import java.util.Scanner;
 
@@ -23,26 +23,26 @@ public class Rational implements Comparable<Rational> {
 
     private static final Rational zero = new Rational(0, 1);
 
-    private int num;   // the numerator
-    private int den;   // the denominator
-
-    public static Rational read(Scanner sc) {
-        return zero;
-    }
+    private long num;   // the numerator
+    private long den;   // the denominator
 
     public static Rational zero() {
         return zero;
     }
 
+    public Rational(long numerator) {
+        this(numerator, 1);
+    }
+
     // create and initialize a new Rational object
-    public Rational(int numerator, int denominator) {
+    public Rational(long numerator, long denominator) {
 
         if (denominator == 0) {
             throw new ArithmeticException("denominator is zero");
         }
         
         // reduce fraction
-        int g = gcd(numerator, denominator);
+        long g = gcd(numerator, denominator);
         num = numerator / g;
         den = denominator / g;
 
@@ -53,12 +53,25 @@ public class Rational implements Comparable<Rational> {
         }
     }
 
+    public static Rational fromDoubleStr(String s) {
+        int ind = s.indexOf('.');
+        if (ind == -1) {
+            return new Rational(Long.parseLong(s));
+        }
+        int exp = s.length() - ind;
+        long de = 1;
+        while (exp-- > 1) {
+            de *= 10;
+        }
+        return new Rational(Long.parseLong(s.replace(".", "")), de);
+    }
+
     // return the numerator and denominator of (this)
-    public int numerator() {
+    public long nu() {
         return num;
     }
 
-    public int denominator() {
+    public long de() {
         return den;
     }
 
@@ -76,8 +89,8 @@ public class Rational implements Comparable<Rational> {
     // return { -1, 0, +1 } if a < b, a = b, or a > b
     public int compareTo(Rational b) {
         Rational a = this;
-        int lhs = a.num * b.den;
-        int rhs = a.den * b.num;
+        long lhs = a.num * b.den;
+        long rhs = a.den * b.num;
         if (lhs < rhs) return -1;
         if (lhs > rhs) return +1;
         return 0;
@@ -104,7 +117,7 @@ public class Rational implements Comparable<Rational> {
     }
 
     // return gcd(|m|, |n|)
-    private static int gcd(int m, int n) {
+    private static long gcd(long m, long n) {
         if (m < 0) m = -m;
         if (n < 0) n = -n;
         if (0 == n) return m;
@@ -112,7 +125,7 @@ public class Rational implements Comparable<Rational> {
     }
 
     // return lcm(|m|, |n|)
-    private static int lcm(int m, int n) {
+    private static long lcm(long m, long n) {
         if (m < 0) m = -m;
         if (n < 0) n = -n;
         return m * (n / gcd(m, n));    // parentheses important to avoid overflow
@@ -137,8 +150,8 @@ public class Rational implements Comparable<Rational> {
         if (b.compareTo(zero) == 0) return a;
 
         // Find gcd of numerators and denominators
-        int f = gcd(a.num, b.num);
-        int g = gcd(a.den, b.den);
+        long f = gcd(a.num, b.num);
+        long g = gcd(a.den, b.den);
 
         // add cross-product terms for numerator
         Rational s = new Rational((a.num / f) * (b.den / g) + (b.num / f) * (a.den / g),
@@ -165,7 +178,6 @@ public class Rational implements Comparable<Rational> {
         Rational a = this;
         return a.plus(b.negate());
     }
-
 
     public Rational reciprocal() {
         return new Rational(den, num);
