@@ -20,14 +20,14 @@ public class Functions {
         return funcs.get(name).apply(args);
     }
 
-    private static Rational frac(Rational[] args) {
+    static Rational frac(Rational[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Wrong number of arguments.");
         }
         return new Rational(args[0].nu(), args[1].nu());
     }
 
-    private static Rational pow(Rational[] args) {
+    static Rational pow(Rational[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Wrong number of arguments.");
         }
